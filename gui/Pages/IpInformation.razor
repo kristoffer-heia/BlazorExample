@@ -1,6 +1,6 @@
 ﻿@page "/ipinfo"
 
-<h3>IP Address Information</h3>
+<h3>IP Addresses</h3>
 
 <p>
 <label>
@@ -15,28 +15,28 @@
 @if (isLoading == true) {
     <p>Loading...</p>
 }
-else if (!string.IsNullOrEmpty(error)) {
+@if (!string.IsNullOrEmpty(error)) {
     <p>error</p>
 }
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Property</th>
-                <th>Value</th>
-            </tr>
-        </thead>
-        @foreach (var info in _ipInfo)
-        {
-            <tr>
-                <th>@info.Key</th>
-                <td>@info.Value</td>
-            </tr>
-        }
-    </table>
-}
 
+<h4>Address information</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Property</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    @foreach (var info in _ipInfo)
+    {
+        <tr>
+            <th>@info.Key</th>
+            <td>@info.Value</td>
+        </tr>
+    }
+</table>
+
+<h4>History</h4>
 <table class="table">
     <thead>
         <tr>
