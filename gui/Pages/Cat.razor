@@ -9,6 +9,10 @@
 
 <button @onclick="AddFactAsync">Add fact</button>
 
+@if (!string.IsNullOrEmpty(error)){
+    <p>@error</p>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -29,10 +33,19 @@
 
 @code {
     private List<CatFact> catFacts = new();
+    private string? error;
 
     private async Task AddFactAsync()
     {
-        CatFact newFact = await CatService.GetCatFactAsync();
-        catFacts.Add(newFact);
+        CatFact newFact;
+
+        try {
+            newFact = await CatService.GetCatFactAsync();
+            catFacts.Add(newFact);
+            error = null;
+        }
+        catch (Exception e){
+            error = e.Message;
+        }
     }
 }

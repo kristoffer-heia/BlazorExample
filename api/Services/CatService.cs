@@ -23,6 +23,9 @@ namespace api.Cat
             string response = await responseMessage.Content.ReadAsStringAsync();
             CatFact? catFact = JsonSerializer.Deserialize<CatFact?>(response);
 
+            if (catFact == null)
+                throw new Exception("Could not get fact");
+
             return catFact;
         }
     }
