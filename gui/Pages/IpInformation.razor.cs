@@ -5,11 +5,18 @@ using System.Reflection;
 
 namespace gui.Pages
 {
+    record HistoryItem
+    (
+        string ipAddress,
+        DateTime searchTime
+    );
+
     public partial class IpInformation : ComponentBase
     {
         private readonly Dictionary<string, string> _ipInfo = new();
+        private readonly List<HistoryItem> _history = new();
         private string? error;
-        private string? search;
+        private string? searchInput;
         private bool? isLoading;
 
         [Inject]
@@ -30,7 +37,7 @@ namespace gui.Pages
                 IpifyResponse ipifyResponse = await IpifyService.CurrentIpAddress();
                 IpInfoResponse ipInfoResponse = await IpInfoService.GetIpInfo(ipifyResponse.Ip);
                 SetAddressInformation(ipInfoResponse);
-                search = ipInfoResponse.Ip;
+                searchInput = ipInfoResponse.Ip;
 
             }
             catch (Exception e)
@@ -45,6 +52,9 @@ namespace gui.Pages
         {
             _ipInfo.Clear();
             error = null;
+            _history.Add(new HistoryItem(
+                ipInfoResponse.Ip,
+                DateTime.Now));
 
             foreach (var prop in typeof(IpInfoResponse).GetProperties())
             {
@@ -53,9 +63,9 @@ namespace gui.Pages
             }
         }
 
-        private async Task Search()
+        private async Task Search(string ip)
         {
-            if (string.IsNullOrEmpty(search))
+            if (string.IsNullOrEmpty(ip))
             {
                 error = "Please provide a valid IP";
             }
@@ -63,7 +73,7 @@ namespace gui.Pages
             {
                 try
                 {
-                    IpInfoResponse ipInfoResponse = await IpInfoService.GetIpInfo(search);
+                    IpInfoResponse ipInfoResponse = await IpInfoService.GetIpInfo(ip);
                     SetAddressInformation(ipInfoResponse);
                 }
                 catch (Exception e)

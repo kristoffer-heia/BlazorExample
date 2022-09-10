@@ -5,9 +5,9 @@
 <p>
 <label>
     IP address
-    <input @bind="search" />
+    <input @bind="searchInput" />
 </label>
-<button @onclick="Search">
+<button @onclick="() => Search(searchInput)">
     Search
 </button>
 </p>
@@ -36,4 +36,26 @@ else
         }
     </table>
 }
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>IP address</th>
+            <th>Search time</th>
+            <th>Search again</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in _history.OrderByDescending(i => i.searchTime))
+        {
+            <tr>
+                <td>@i.ipAddress</td>
+                <td>@i.searchTime</td>
+                <td><button @onclick="() => Search(i.ipAddress)">
+                    Search
+                </button></td>
+            </tr>
+        }
+    </tbody>
+</table>
 
