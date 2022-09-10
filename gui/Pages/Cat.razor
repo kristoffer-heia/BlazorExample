@@ -1,0 +1,38 @@
+﻿@page "/cat"
+
+<PageTitle>Cat</PageTitle>
+
+@using api.Cat
+@inject ICatService CatService
+
+<h1>Cat fact</h1>
+
+<button @onclick="AddFactAsync">Add fact</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Fact</th>
+            <th>Length</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var fact in catFacts)
+        {
+            <tr>
+                <td>@fact.Fact</td>
+                <td>@fact.Length</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<CatFact> catFacts = new();
+
+    private async Task AddFactAsync()
+    {
+        CatFact newFact = await CatService.GetCatFactAsync();
+        catFacts.Add(newFact);
+    }
+}
