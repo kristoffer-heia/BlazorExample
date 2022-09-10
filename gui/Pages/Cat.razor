@@ -7,7 +7,8 @@
 
 <h1>Cat facts</h1>
 
-<button @onclick="AddFactAsync">New fact!</button>
+<button type="button" class="btn-primary" @onclick="AddFactAsync">New fact!</button>
+<button type="button" class="btn" @onclick="Clear">Clear list</button>
 
 @if (!string.IsNullOrEmpty(error)){
     <p>@error</p>
@@ -48,4 +49,7 @@
             error = e.Message;
         }
     }
+
+    private void Clear() =>
+        catFacts.RemoveAll(f => true);
 }
