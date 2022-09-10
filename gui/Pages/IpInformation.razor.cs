@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace gui.Pages
 {
-    public partial class IpAddressInformation : ComponentBase
+    public partial class IpInformation : ComponentBase
     {
         private readonly Dictionary<string, string> _ipInfo = new();
         private string? error;
@@ -17,7 +17,7 @@ namespace gui.Pages
         [Inject]
         private IIpInfoService IpInfoService { get; set; }
 
-        public IpAddressInformation()
+        public IpInformation()
         {
             isLoading = true;
         }

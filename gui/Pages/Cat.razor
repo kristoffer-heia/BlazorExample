@@ -1,13 +1,13 @@
 ﻿@page "/cat"
 
-<PageTitle>Cat</PageTitle>
+<PageTitle>Cat facts</PageTitle>
 
 @using api.Cat
 @inject ICatService CatService
 
-<h1>Cat fact</h1>
+<h1>Cat facts</h1>
 
-<button @onclick="AddFactAsync">Add fact</button>
+<button @onclick="AddFactAsync">New fact!</button>
 
 @if (!string.IsNullOrEmpty(error)){
     <p>@error</p>
