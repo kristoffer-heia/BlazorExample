@@ -2,6 +2,7 @@
 using api.Ipify;
 using api.IpInfo;
 using System.Reflection;
+using System.Text;
 
 namespace gui.Pages
 {
@@ -81,6 +82,24 @@ namespace gui.Pages
                     error = e.Message;
                 }
             }
+        }
+
+        private string RandomIpAddress()
+        {
+            Random random = new();
+            const int ipSectionCount = 4;
+            string[] ipSections = new string[ipSectionCount];
+
+            const int sectionMinVale = 0;
+            const int sectionMaxVale = 255;
+
+            for (int i=0; i<ipSectionCount; i++)
+            {
+                int sectionValue = random.Next(sectionMinVale, sectionMaxVale);
+                ipSections[i] = sectionValue.ToString();
+            }
+
+            return string.Join(".", ipSections);
         }
     }
 }

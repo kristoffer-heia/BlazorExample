@@ -10,6 +10,9 @@
 <button @onclick="() => Search(searchInput)">
     Search
 </button>
+<button @onclick="() => Search(RandomIpAddress())">
+    Random
+</button>
 </p>
 
 @if (isLoading == true) {
