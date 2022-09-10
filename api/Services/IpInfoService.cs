@@ -21,7 +21,7 @@ namespace api.IpInfo
             IpInfoResponse? ipInfo = JsonSerializer.Deserialize<IpInfoResponse?>(respone);
 
             if (ipInfo == null)
-                throw new Exception("Could not retrieve IP info");
+                throw new Exception($"Could not retrieve info for IP={ip}");
 
             return ipInfo;
         }

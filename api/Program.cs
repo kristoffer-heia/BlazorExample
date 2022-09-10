@@ -11,6 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
+builder.Services.AddScoped<IIpifyService, IpifyService>();
+builder.Services.AddScoped<IIpInfoService, IpInfoService>();
 
 var app = builder.Build();
 

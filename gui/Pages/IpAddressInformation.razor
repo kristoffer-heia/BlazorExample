@@ -1,0 +1,29 @@
+﻿@page "/ipinfo"
+
+<h3>IP Address Information</h3>
+
+@if (isLoading == true) {
+    <p>Loading...</p>
+}
+else if (!string.IsNullOrEmpty(error)) {
+    <p>error</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Property</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        @foreach (var info in _ipInfo)
+        {
+            <tr>
+                <th>@info.Key</th>
+                <td>@info.Value</td>
+            </tr>
+        }
+    </table>
+}
+

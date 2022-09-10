@@ -1,5 +1,7 @@
 // using gui.Data;
 using api.Cat;
+using api.Ipify;
+using api.IpInfo;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -20,6 +22,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<ICatService, CatService>();
+builder.Services.AddScoped<IIpifyService, IpifyService>();
+builder.Services.AddScoped<IIpInfoService, IpInfoService>();
 
 var app = builder.Build();
 
