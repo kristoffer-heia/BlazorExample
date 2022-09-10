@@ -1,3 +1,3 @@
 # BlazorExample
 ## Overview
-This repo is for testing interacion between a backend API and a fronend Blazor GUI.
+This repo is for testing interaction between a backend API and a fronend Blazor GUI.
