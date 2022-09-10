@@ -2,6 +2,16 @@
 
 <h3>IP Address Information</h3>
 
+<p>
+<label>
+    IP address
+    <input @bind="search" />
+</label>
+<button @onclick="Search">
+    Search
+</button>
+</p>
+
 @if (isLoading == true) {
     <p>Loading...</p>
 }

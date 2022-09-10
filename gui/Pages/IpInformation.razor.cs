@@ -9,6 +9,7 @@ namespace gui.Pages
     {
         private readonly Dictionary<string, string> _ipInfo = new();
         private string? error;
+        private string? search;
         private bool? isLoading;
 
         [Inject]
@@ -29,6 +30,7 @@ namespace gui.Pages
                 IpifyResponse ipifyResponse = await IpifyService.CurrentIpAddress();
                 IpInfoResponse ipInfoResponse = await IpInfoService.GetIpInfo(ipifyResponse.Ip);
                 SetAddressInformation(ipInfoResponse);
+                search = ipInfoResponse.Ip;
 
             }
             catch (Exception e)
@@ -41,10 +43,33 @@ namespace gui.Pages
 
         private void SetAddressInformation(IpInfoResponse ipInfoResponse)
         {
+            _ipInfo.Clear();
+            error = null;
+
             foreach (var prop in typeof(IpInfoResponse).GetProperties())
             {
                 string? value = prop.GetValue(ipInfoResponse)?.ToString();
                 _ipInfo.Add(prop.Name, value ?? "Not found");
+            }
+        }
+
+        private async Task Search()
+        {
+            if (string.IsNullOrEmpty(search))
+            {
+                error = "Please provide a valid IP";
+            }
+            else
+            {
+                try
+                {
+                    IpInfoResponse ipInfoResponse = await IpInfoService.GetIpInfo(search);
+                    SetAddressInformation(ipInfoResponse);
+                }
+                catch (Exception e)
+                {
+                    error = e.Message;
+                }
             }
         }
     }
